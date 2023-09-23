@@ -1,13 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiFillBell } from "react-icons/ai";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const handleSearch = (e) => {
+    e.preventDefault();
+    let inputValue = e.target[0].value;
+    navigate(`/results?search_query=${inputValue}`);
+    e.target[0].value = "";
+  };
   return (
     <header className="flex justify-between items-center p-4 bg-[#0f0f0f] text-white">
       <Link className="flex items-center gap-3 text-3xl" to={"/"}>
         <img width={50} src="/youtube_logo.png" /> <h1>YouTube</h1>
       </Link>
-      <form className="bg-white rounded flex items-center text-black">
+      <form
+        onSubmit={handleSearch}
+        className="bg-white rounded flex items-center text-black"
+      >
         <input
           className="rounded px-4 py-1 outline-none"
           type="text"
